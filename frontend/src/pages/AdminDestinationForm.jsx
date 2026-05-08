@@ -22,7 +22,7 @@ const AdminDestinationForm = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:5000/api/destinations/${id}`)
+      axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations/${id}`)
         .then(res => setFormData(res.data))
         .catch(console.error);
     }
@@ -54,9 +54,9 @@ const AdminDestinationForm = () => {
     e.preventDefault();
     try {
       if (id) {
-        await axios.put(`http://localhost:5000/api/destinations/${id}`, formData);
+        await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations/${id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/destinations', formData);
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations`, formData);
       }
       navigate('/admin');
     } catch (err) {

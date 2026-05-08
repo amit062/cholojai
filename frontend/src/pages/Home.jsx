@@ -37,7 +37,7 @@ const Home = () => {
   const [aiSuggestion, setAiSuggestion] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/destinations')
+    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations`)
       .then(r => setDestinations(r.data))
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -65,7 +65,7 @@ const Home = () => {
     setIsAiLoading(true);
     setAiSuggestion(null);
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/suggest');
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/suggest`);
       setAiSuggestion(res.data.destination ? res.data : { error: 'Unexpected AI response format.' });
     } catch {
       setAiSuggestion({ error: 'Could not connect to AI services. Please ensure the backend is running.' });

@@ -21,7 +21,7 @@ const AiAssistant = ({ activeDestination }) => {
   const handleConsult = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/assistant', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/assistant`, {
         destinationName: activeDestination?.name || null,
         currentDate: currentDate,
         currentMonth: currentMonth

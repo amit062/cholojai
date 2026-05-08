@@ -14,7 +14,7 @@ const Destinations = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/destinations')
+    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations`)
       .then(r => setDestinations(r.data))
       .catch(() => {})
       .finally(() => setLoading(false));

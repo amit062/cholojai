@@ -25,7 +25,7 @@ const DestinationDetail = () => {
   const [itineraryError, setItineraryError] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/destinations')
+    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations`)
       .then(res => {
         const found = res.data.find(d => d.slug === slug || d._id === slug);
         setDestination(found);
@@ -40,7 +40,7 @@ const DestinationDetail = () => {
     setItinerary(null);
     setItineraryError('');
     try {
-      const res = await axios.post('http://localhost:5000/api/ai/itinerary', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/itinerary`, {
         destination: destination.name,
         days: selectedDays
       });
@@ -61,7 +61,7 @@ const DestinationDetail = () => {
     }
     setVisitedLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/auth/visit', { destinationId: destination._id });
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/visit`, { destinationId: destination._id });
       await fetchUser(); // Updates the user object
     } catch (err) {
       // Ignored for now or could alert

@@ -18,13 +18,13 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // Socket connection for active users
-    const socket = io('http://localhost:5000');
+    const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:5000');
     socket.on('activeUsers', (count) => {
       setActiveUsers(count);
     });
 
     // Fetch all destinations
-    axios.get('http://localhost:5000/api/destinations')
+    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations`)
       .then(res => setDestinations(res.data))
       .catch(console.error);
 
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this destination?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/destinations/${id}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/destinations/${id}`);
         setDestinations(destinations.filter(d => d._id !== id));
       } catch (error) {
         console.error('Failed to delete', error);
