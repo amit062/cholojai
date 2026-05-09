@@ -7,7 +7,7 @@ const HERO_IMAGES = [
   { url: 'https://loremflickr.com/1280/720/bangladesh,coxsbazar?lock=1', label: "Cox's Bazar" },
   { url: 'https://loremflickr.com/1280/720/bangladesh,bandarban?lock=2', label: "Bandarban" },
   { url: 'https://loremflickr.com/1280/720/bangladesh,sajek?lock=3', label: "Sajek Valley" },
-  { url: 'https://loremflickr.com/1280/720/bangladesh,sylhet?lock=4', label: "Ratargul, Sylhet" },
+  { url: '/images/hero/ratargul.jpg', label: "Ratargul, Sylhet" },
   { url: 'https://loremflickr.com/1280/720/bangladesh,sundarbans?lock=5', label: "Sundarbans" },
 ];
 
@@ -89,14 +89,15 @@ const Home = () => {
             style={{
               position: 'absolute', inset: 0,
               backgroundImage: `url("${HERO_IMAGES[heroIdx].url}")`,
-              backgroundSize: 'cover', backgroundPosition: 'center'
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              backgroundAttachment: 'fixed'
             }}
           />
         </AnimatePresence>
         {/* Preload all hero images silently with referrerPolicy */}
         {HERO_IMAGES.map(img => (
           <img key={img.url} src={img.url} alt="" referrerPolicy="no-referrer"
-            style={{ display: 'none' }} onLoad={() => {}} />
+            style={{ display: 'none' }} onLoad={() => { }} />
         ))}
 
         <div className="hero-overlay"></div>
@@ -128,29 +129,29 @@ const Home = () => {
 
             {/* Instant Search Dropdown Popup */}
             {searchTerm && (
-              <div 
-                className="search-results-dropdown" 
-                style={{ 
-                  position: 'absolute', top: '100%', left: 0, right: 0, 
-                  background: '#fff', borderRadius: '8px', 
-                  boxShadow: '0 10px 25px rgba(0,0,0,0.3)', 
-                  marginTop: '0.5rem', maxHeight: '350px', overflowY: 'auto', 
+              <div
+                className="search-results-dropdown"
+                style={{
+                  position: 'absolute', top: '100%', left: 0, right: 0,
+                  background: '#fff', borderRadius: '8px',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+                  marginTop: '0.5rem', maxHeight: '350px', overflowY: 'auto',
                   zIndex: 999, display: 'flex', flexDirection: 'column', textAlign: 'left'
                 }}
               >
                 {filtered.length > 0 ? (
                   filtered.map(dest => (
-                     <Link key={dest._id} to={`/destination/${dest.slug || dest._id}`} 
-                           style={{ padding: '0.75rem 1rem', borderBottom: '1px solid #f0f0f0', color: 'var(--color-ink)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '1rem', transition: 'background 0.2s' }}
-                           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-                           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                     >
-                        <img src={dest.imageUrl} alt={dest.name} style={{ width: '48px', height: '48px', borderRadius: '6px', objectFit: 'cover' }} />
-                        <div>
-                          <h4 style={{ margin: 0, fontSize: '1.05rem', color: '#1f2937' }}>{dest.name}</h4>
-                          <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>📍 {dest.location}</span>
-                        </div>
-                     </Link>
+                    <Link key={dest._id} to={`/destination/${dest.slug || dest._id}`}
+                      style={{ padding: '0.75rem 1rem', borderBottom: '1px solid #f0f0f0', color: 'var(--color-ink)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '1rem', transition: 'background 0.2s' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                      <img src={dest.imageUrl} alt={dest.name} style={{ width: '48px', height: '48px', borderRadius: '6px', objectFit: 'cover' }} />
+                      <div>
+                        <h4 style={{ margin: 0, fontSize: '1.05rem', color: '#1f2937' }}>{dest.name}</h4>
+                        <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>📍 {dest.location}</span>
+                      </div>
+                    </Link>
                   ))
                 ) : (
                   <div style={{ padding: '1rem', color: '#6b7280', textAlign: 'center' }}>No destinations match "{searchTerm}"</div>
@@ -159,13 +160,15 @@ const Home = () => {
             )}
           </div>
 
-          <p className="hint-text">or explore popular destinations →</p>
+          <p className="hint-text">or explore popular destinations <span className="btn-arrow">→</span></p>
           <div className="pill-container">
             {POPULAR.map(dest => (
               <span key={dest} className="location-pill" onClick={() => setSearchTerm(dest)}>{dest}</span>
             ))}
           </div>
         </div>
+        
+        <div className="scroll-indicator"></div>
       </section>
 
       {/* ── AI FAB ── */}
@@ -225,12 +228,25 @@ const Home = () => {
       <main className="main-content">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
           <h2 className="section-title" style={{ margin: 0 }}>Discover Authentic Bangladesh</h2>
-          <Link to="/destinations" className="btn-outline">View All {destinations.length} →</Link>
+          <Link to="/destinations" className="btn-outline">View All {destinations.length} <span className="btn-arrow">→</span></Link>
         </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '3rem' }}>
-            <div className="pulse-loader" style={{ margin: '0 auto' }}></div>
+          <div className="grid-cards">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="tour-card" style={{ height: '380px', display: 'flex', flexDirection: 'column' }}>
+                <div className="skeleton" style={{ height: '200px', width: '100%', borderRadius: 0, flexShrink: 0 }}></div>
+                <div className="card-info" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', flex: 1, padding: '1.25rem' }}>
+                  <div className="skeleton" style={{ height: '14px', width: '30%' }}></div>
+                  <div className="skeleton" style={{ height: '22px', width: '70%' }}></div>
+                  <div className="skeleton" style={{ height: '35px', width: '100%' }}></div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
+                    <div className="skeleton" style={{ height: '18px', width: '20%' }}></div>
+                    <div className="skeleton" style={{ height: '32px', width: '30%', borderRadius: '50px' }}></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className="grid-cards">
@@ -258,7 +274,7 @@ const Home = () => {
                     <p className="card-desc">{dest.description?.substring(0, 100)}...</p>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
                       <span style={{ color: 'var(--color-saffron)', fontWeight: 700 }}>⭐ {dest.rating}</span>
-                      <Link to={`/destination/${dest.slug || dest._id}`} className="btn-outline">Explore →</Link>
+                      <Link to={`/destination/${dest.slug || dest._id}`} className="btn-outline">Explore <span className="btn-arrow">→</span></Link>
                     </div>
                   </div>
                 </motion.div>

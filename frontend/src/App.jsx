@@ -14,6 +14,11 @@ import AdminDestinationForm from './pages/AdminDestinationForm';
 function App() {
   return (
     <>
+      <div className="aurora-bg">
+        <div className="aurora-orb orb-1"></div>
+        <div className="aurora-orb orb-2"></div>
+        <div className="aurora-orb orb-3"></div>
+      </div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

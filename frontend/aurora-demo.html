@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aurora Background Demo</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Base background color - your parchment color */
+      background-color: #F5F0E8; 
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* The Aurora Orbs */
+    .aurora-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px); /* This makes it look like a soft glow rather than a circle */
+      opacity: 0.5;
+      animation: float 15s infinite ease-in-out alternate;
+    }
+
+    /* Terracotta Orb */
+    .orb-1 {
+      width: 40vw;
+      height: 40vw;
+      background: #C4622D; /* Terracotta */
+      top: -10%;
+      left: -10%;
+    }
+
+    /* Forest Green Orb */
+    .orb-2 {
+      width: 50vw;
+      height: 50vw;
+      background: #1B3A2D; /* Forest Green */
+      bottom: -20%;
+      right: -10%;
+      animation-delay: -5s;
+    }
+
+    /* Saffron Orb */
+    .orb-3 {
+      width: 30vw;
+      height: 30vw;
+      background: #E8A838; /* Saffron */
+      top: 30%;
+      left: 40%;
+      animation-delay: -10s;
+    }
+
+    /* Animation to make the orbs drift slowly */
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        transform: translate(5%, 10%) scale(1.1);
+      }
+      100% {
+        transform: translate(-5%, -5%) scale(0.9);
+      }
+    }
+
+    /* Sample UI in the foreground to show how it looks behind content */
+    .demo-content {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      padding: 3rem 4rem;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+
+    h1 {
+      color: #1B3A2D;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #333;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background: #C4622D;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #a65022;
+      box-shadow: 0 4px 15px rgba(196, 98, 45, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="aurora-container">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Foreground Content -->
+  <div class="demo-content">
+    <h1>The Aurora Glow</h1>
+    <p>Notice the soft, moving colors in the background? Instead of a solid flat color, these large, heavily blurred orbs drift slowly behind your content.</p>
+    <p>Combined with the frosted glass effect on your cards (like this box), it creates a very deep, 3D, premium look without being distracting!</p>
+    <a href="#" class="btn">Looks Great!</a>
+  </div>
+
+</body>
+</html>

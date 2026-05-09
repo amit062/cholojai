@@ -63,7 +63,7 @@ const Destinations = () => {
       </section>
 
       {/* Filters */}
-      <div style={{ background: '#fff', borderBottom: '1px solid rgba(0,0,0,0.08)', position: 'sticky', top: '70px', zIndex: 100 }}>
+      <div className="glass-panel" style={{ borderBottom: '1px solid rgba(0,0,0,0.08)', position: 'sticky', top: '70px', zIndex: 100, borderLeft: 'none', borderRight: 'none', borderRadius: 0 }}>
         <div className="main-content" style={{ padding: '1rem 2rem' }}>
           {/* Category Pills */}
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
@@ -105,9 +105,21 @@ const Destinations = () => {
       {/* Results */}
       <main className="main-content">
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '5rem' }}>
-            <div className="pulse-loader" style={{ margin: '0 auto' }}></div>
-            <p style={{ marginTop: '1rem', color: 'var(--color-muted)' }}>Loading destinations...</p>
+          <div className="grid-cards">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="tour-card" style={{ height: '420px', display: 'flex', flexDirection: 'column' }}>
+                <div className="skeleton" style={{ height: '220px', width: '100%', borderRadius: 0, flexShrink: 0 }}></div>
+                <div className="card-info" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, padding: '1.5rem' }}>
+                  <div className="skeleton" style={{ height: '15px', width: '40%' }}></div>
+                  <div className="skeleton" style={{ height: '24px', width: '80%' }}></div>
+                  <div className="skeleton" style={{ height: '40px', width: '100%' }}></div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
+                    <div className="skeleton" style={{ height: '20px', width: '20%' }}></div>
+                    <div className="skeleton" style={{ height: '35px', width: '30%', borderRadius: '50px' }}></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <>
@@ -152,7 +164,7 @@ const Destinations = () => {
                           ⭐ {dest.rating}
                         </span>
                         <Link to={`/destination/${dest.slug || dest._id}`} className="btn-outline">
-                          Explore →
+                          Explore <span className="btn-arrow">→</span>
                         </Link>
                       </div>
                     </div>

@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
       <Link to="/" className="nav-brand">
-        ✈️ Cholojai
+        <div>✈️ <span className="gradient-text">Cholojai</span></div>
         <span>DISCOVER AUTHENTIC BANGLADESH</span>
       </Link>
 

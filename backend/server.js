@@ -15,6 +15,8 @@ const aiRoutes = require('./routes/aiRoutes');
 const detailRoutes = require('./routes/detailRoutes');
 const aiAssistantRoutes = require('./routes/aiAssistantRoutes');
 const authRoutes = require('./routes/authRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -71,6 +73,10 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/details', detailRoutes);
 app.use('/api/assistant', aiAssistantRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/upload', uploadRoutes);
+
+const dirname = path.resolve();
+app.use('/uploads', express.static(path.join(dirname, 'uploads')));
 
 // Basic Route
 app.get('/', (req, res) => {

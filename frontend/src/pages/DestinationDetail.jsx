@@ -92,7 +92,7 @@ const DestinationDetail = () => {
   return (
     <div className="destination-page">
       {/* Hero */}
-      <section className="hero-section" style={{ backgroundImage: `url(${destination.imageUrl})`, height: '60vh' }}>
+      <section className="hero-section" style={{ backgroundImage: `url(${destination.imageUrl})`, height: '60vh', backgroundAttachment: 'fixed' }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '1rem', fontSize: '0.9rem' }}>
@@ -117,8 +117,10 @@ const DestinationDetail = () => {
             </button>
           </div>
           <span className="card-division" style={{ color: 'var(--color-saffron)', fontSize: '1.1rem' }}>📍 {destination.location}</span>
-          <p style={{ color: 'rgba(255,255,255,0.9)', marginTop: '1rem', maxWidth: '600px' }}>{destination.description}</p>
+          <p className="drop-cap" style={{ color: 'rgba(255,255,255,0.9)', marginTop: '1rem', maxWidth: '600px', textAlign: 'left' }}>{destination.description}</p>
         </div>
+
+        <div className="scroll-indicator"></div>
 
         {/* Hidden anchor img tag with referrerPolicy — belt-and-suspenders */}
         <img src={destination.imageUrl} alt="" referrerPolicy="no-referrer" style={{ display: 'none' }} onLoad={() => {}} />
